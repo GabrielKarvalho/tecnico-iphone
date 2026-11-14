@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#05070d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Técnico iPhone">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icones/icone.svg" type="image/svg+xml">
+<link rel="icon" href="icones/icone-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="icones/icone-180.png">
+<title>Formação Técnico iPhone</title>
+<meta name="description" content="Aprenda a consertar iPhone do zero com vídeo aulas práticas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--marca:#1e8bff;--marca-forte:#0a6cff;--fundo:#05070d;--borda:rgba(255,255,255,.07);--texto-2:#a3abba;--sucesso:#22c55e;--seguro-topo:env(safe-area-inset-top);--seguro-base:env(safe-area-inset-bottom)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--fundo);color:#f5f7fa;font-family:Inter,-apple-system,BlinkMacSystemFont,"SF Pro Display",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+input{font:inherit;color:inherit}
+p,h1,h2,h3{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+.ic{display:block;flex-shrink:0}
+.fundo-app{min-height:100dvh;background:radial-gradient(120% 50% at 80% -10%,rgba(30,110,255,.28),transparent 60%),radial-gradient(80% 40% at 0% 0%,rgba(30,80,200,.18),transparent 60%),var(--fundo)}
+.tela{max-width:448px;margin:0 auto;padding:max(20px,var(--seguro-topo)) 16px 112px}
+.cartao{background:linear-gradient(180deg,rgba(20,27,42,.9),rgba(10,14,23,.9));border:1px solid var(--borda)}
+.r-xl{border-radius:12px}.r-2xl{border-radius:16px}
+.t2{color:var(--texto-2)}.azul{color:var(--marca)}
+.flex{display:flex;align-items:center}.col{display:flex;flex-direction:column}
+.entre{justify-content:space-between}.g1{gap:4px}.g2{gap:8px}.g3{gap:12px}.g4{gap:16px}.g5{gap:20px}
+.mt1{margin-top:4px}.mt2{margin-top:8px}.mt3{margin-top:12px}.mt4{margin-top:16px}.mt5{margin-top:20px}.mt6{margin-top:24px}
+.f1{flex:1;min-width:0}.trunc{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sem-scroll{scrollbar-width:none}.sem-scroll::-webkit-scrollbar{display:none}
+/* nav */
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:20;border-top:1px solid var(--borda);background:rgba(7,10,18,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding-bottom:var(--seguro-base)}
+.nav ul{max-width:448px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
+.nav a{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 0 10px;font-size:13px;color:#d4d4d4}
+.nav a.ativo{color:var(--marca);font-weight:600}
+/* cabeçalho de página */
+.cab{display:flex;align-items:flex-start;gap:12px}
+.cab h1{font-size:32px;font-weight:700;line-height:1.15}
+.cab p{margin-top:4px;font-size:15px;line-height:1.35;color:var(--texto-2)}
+.btn-ic{display:grid;place-items:center;border-radius:999px}
+/* chips */
+.chips{display:flex;gap:8px;overflow-x:auto;margin:20px -16px 0;padding:0 16px}
+.chip{flex-shrink:0;border-radius:999px;padding:10px 20px;font-size:15px;background:rgba(255,255,255,.07);color:#e5e5e5}
+.chip.ativo{background:var(--marca);color:#fff;font-weight:500;box-shadow:0 0 16px rgba(30,139,255,.5)}
+.campo-busca{width:100%;margin-top:16px;padding:12px 16px;border-radius:12px;outline:none}
+.campo-busca:focus{border-color:var(--marca)}
+/* progresso */
+.barra{height:6px;width:100%;border-radius:999px;background:rgba(255,255,255,.1)}
+.barra>i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--marca-forte),var(--marca));box-shadow:0 0 8px rgba(30,139,255,.6)}
+.anel{position:relative;flex-shrink:0}
+.anel span{position:absolute;inset:0;display:grid;place-items:center;font-size:20px;font-weight:700}
+/* miniaturas */
+.thumb{position:relative;overflow:hidden;background:linear-gradient(135deg,#1b3a7a,#0e1d3d 50%,#060a14)}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.play-redondo{position:absolute;inset:0;margin:auto;width:48px;height:48px;border-radius:999px;background:rgba(0,0,0,.7);display:grid;place-items:center}
+/* home */
+.logo{display:flex;align-items:center;gap:12px}
+.logo-ic{position:relative;width:48px;height:48px}
+.logo-ic .chave{position:absolute;right:-4px;bottom:0;background:var(--fundo);border-radius:999px;padding:2px;color:var(--marca)}
+.logo p{font-size:22px;font-weight:700;line-height:1.05;letter-spacing:-.01em}
+.badge{position:absolute;top:-2px;right:-2px;width:20px;height:20px;border-radius:999px;background:#ef4444;font-size:11px;font-weight:700;display:grid;place-items:center}
+.hero{position:relative;overflow:hidden;margin-top:20px;border-radius:16px;border:1px solid rgba(30,139,255,.3);padding:20px;background:linear-gradient(120deg,#0b1a3a 0%,#0b2a6b 55%,#0a1630 100%);box-shadow:0 0 30px rgba(30,110,255,.25)}
+.hero .brilho{position:absolute;inset:0;background:radial-gradient(60% 80% at 85% 30%,rgba(60,140,255,.35),transparent 70%)}
+.hero .foto{position:absolute;top:0;right:0;height:100%;width:62%;object-fit:cover;object-position:62% 18%}
+.hero .fade{position:absolute;top:0;bottom:0;right:30%;width:32%;background:linear-gradient(90deg,#0b1d45,transparent)}
+.hero .txt{position:relative;max-width:74%}
+.hero h2{font-size:25px;font-weight:700;line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hero p{margin-top:8px;font-size:15px;line-height:1.35;color:#e5e5e5}
+.btn-hero{margin-top:16px;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;border-radius:999px;background:var(--marca);padding:10px 20px;font-size:15px;font-weight:600;color:#04122b;box-shadow:0 0 18px rgba(30,139,255,.6)}
+.btn-hero .bola{width:20px;height:20px;border-radius:999px;background:#04122b;display:grid;place-items:center;color:var(--marca)}
+.recentes{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:12px -16px 0;padding:0 16px}
+.recente{display:flex;gap:8px;width:92%;flex-shrink:0;scroll-snap-align:start}
+.recente .thumb{width:58%;aspect-ratio:16/10;border-radius:12px;flex-shrink:0}
+.recente .info{flex:1;display:flex;flex-direction:column;justify-content:space-between;padding:12px;border-radius:12px}
+.clamp3{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.atalhos{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.atalhos a{display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px 4px;border-radius:12px;text-align:center;font-size:12px;font-weight:500;line-height:1.2}
+.ok-verde{color:#fff}
+/* aulas / módulos */
+.mod{display:flex;gap:12px;padding:10px;border-radius:16px}
+.mod .thumb{width:112px;height:96px;border-radius:12px;flex-shrink:0}
+.st{width:32px;height:32px;border-radius:999px;display:grid;place-items:center;flex-shrink:0}
+.st.ok{background:var(--sucesso)}.st.and{background:var(--marca);box-shadow:0 0 12px rgba(30,139,255,.7)}.st.lock{background:rgba(255,255,255,.1)}
+.voltar{display:flex;align-items:center;gap:4px;font-size:15px;color:var(--marca)}
+.item-aula{display:flex;align-items:center;gap:12px;padding:14px;border-radius:12px}
+.num{width:36px;height:36px;border-radius:999px;display:grid;place-items:center;font-size:14px;font-weight:600;background:rgba(255,255,255,.1);flex-shrink:0}
+.num.feito{background:var(--sucesso)}
+.player{margin-top:16px;overflow:hidden;border-radius:16px;border:1px solid var(--borda);box-shadow:0 0 30px rgba(30,110,255,.2);aspect-ratio:16/9;background:#000}
+.player iframe{width:100%;height:100%;border:0;display:block}
+.btn{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:12px;font-weight:600}
+.btn.azul-bg{background:var(--marca);box-shadow:0 0 18px rgba(30,139,255,.5)}
+.btn.concluida{background:rgba(34,197,94,.15);color:var(--sucesso)}
+/* materiais */
+.grade-mat{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.mat{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;padding:16px 12px 12px;border-radius:16px}
+.mat .tit{margin-top:12px;font-size:14.5px;font-weight:600;line-height:1.2}
+.mat .baixar{position:absolute;right:10px;bottom:10px;width:32px;height:32px;border-radius:999px;background:var(--marca);display:grid;place-items:center;box-shadow:0 0 12px rgba(30,139,255,.6)}
+.trava{margin-top:8px;display:flex;align-items:center;gap:6px;border-radius:999px;background:rgba(30,139,255,.15);padding:4px 10px;font-size:12px;font-weight:600;color:var(--marca)}
+.aviso{margin-top:16px;display:flex;align-items:center;gap:12px;border-radius:16px;border:1px solid rgba(30,139,255,.3);background:rgba(30,139,255,.1);padding:14px;font-size:14px;line-height:1.4}
+/* perfil */
+.avatar{position:relative;width:64px;height:64px;flex-shrink:0}
+.avatar .circ{width:100%;height:100%;border-radius:999px;overflow:hidden;background:#d4d4d4;display:grid;place-items:center}
+.avatar .circ img{width:100%;height:100%;object-fit:cover}
+.avatar .cam{position:absolute;right:-2px;bottom:-2px;width:24px;height:24px;border-radius:999px;border:2px solid #0c111c;background:var(--marca);display:grid;place-items:center}
+.lista-perfil li+li{border-top:1px solid var(--borda)}
+.lista-perfil a,.lista-perfil button{width:100%;display:flex;align-items:center;gap:16px;padding:16px;text-align:left;font-size:15px}
+.campo-nome{min-width:0;flex:1;border-radius:12px;border:1px solid var(--marca);background:rgba(255,255,255,.05);padding:10px 12px;font-size:17px;outline:none}
+/* folha (bottom sheet) */
+.folha-fundo{position:fixed;inset:0;z-index:30;display:flex;align-items:flex-end;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.folha{width:100%;max-width:448px;margin:0 auto;border-radius:24px 24px 0 0;padding:24px 24px max(24px,var(--seguro-base))}
+.folha h2{font-size:20px;font-weight:700}
+.btn-claro{background:rgba(255,255,255,.1)}
+/* instalar */
+.inst-topo{display:flex;align-items:center;gap:14px}
+.inst-topo img{width:56px;height:56px;border-radius:14px;box-shadow:0 0 18px rgba(30,139,255,.35);flex-shrink:0}
+.passos{margin-top:18px;display:flex;flex-direction:column;gap:12px}
+.passo{display:flex;align-items:flex-start;gap:12px;font-size:15px;line-height:1.45}
+.passo .n{width:26px;height:26px;border-radius:999px;background:var(--marca);font-size:13px;font-weight:700;display:grid;place-items:center;flex-shrink:0}
+.chip-ic{display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;margin:0 2px;width:26px;height:26px;border-radius:7px;background:rgba(255,255,255,.12);color:var(--marca)}
+.seta-baixo{display:flex;justify-content:center;margin-top:14px;color:var(--marca);animation:pulo 1.2s ease-in-out infinite}
+@keyframes pulo{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+.ib{display:flex;align-items:center;gap:10px;margin:0 0 16px;padding:10px 12px;border-radius:14px;border:1px solid var(--marca);background:#0d1a33}
+.ib img{width:36px;height:36px;border-radius:9px;flex-shrink:0}
+.ib b{display:block;font-size:14.5px;line-height:1.25}
+.ib small{display:block;margin-top:1px;font-size:12px;color:var(--texto-2)}
+.ibb{flex-shrink:0;border-radius:12px;background:var(--marca);padding:9px 16px;font-size:13.5px;font-weight:700;color:#fff}
+.ibx{flex-shrink:0;padding:6px;color:var(--texto-2)}
+.entrar .ib{margin:0 0 20px}
+.lista-inst{margin:12px 0;padding-left:20px;list-style:decimal;line-height:1.8;font-size:15px}
+.lista-inst li{padding-left:2px}
+.lista-inst .chip-ic{width:24px;height:24px}
+.aviso-item{display:flex;gap:12px;padding:14px;border-radius:14px}
+.aviso-item .ponto{width:9px;height:9px;border-radius:999px;margin-top:6px;flex-shrink:0;background:transparent}
+.aviso-item.novo .ponto{background:var(--marca);box-shadow:0 0 8px rgba(30,139,255,.8)}
+.aviso-link{display:inline-flex;align-items:center;gap:4px;margin-top:8px;font-size:14px;font-weight:600;color:var(--marca)}
+/* entrar */
+.entrar{position:relative;display:flex;flex-direction:column;min-height:100dvh;overflow:hidden}
+.entrar .topo{position:absolute;left:0;right:0;top:0;height:52dvh}
+.entrar .topo img{width:100%;height:100%;object-fit:cover;object-position:62% 20%;opacity:.8}
+.entrar .topo i{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,7,13,.4),rgba(5,7,13,.3) 50%,var(--fundo))}
+.entrar .conteudo{position:relative;flex:1;display:flex;flex-direction:column;width:100%;max-width:448px;margin:0 auto;padding:max(24px,var(--seguro-topo)) 24px max(24px,var(--seguro-base))}
+.entrar form{margin-top:auto}
+.entrar h1{font-size:30px;font-weight:700;line-height:1.2}
+.entrar input{width:100%;margin-top:8px;padding:16px;border-radius:16px;font-size:17px;outline:none}
+.entrar input:focus{border-color:var(--marca);box-shadow:0 0 0 3px rgba(30,139,255,.25)}
+.entrar .btn{margin-top:16px;border-radius:16px;padding:16px;font-size:17px}
+.entrar .btn:disabled{opacity:.4;box-shadow:none}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<input id="arquivo-foto" type="file" accept="image/*" hidden>
+<script>
+"use strict";
+// ======================================================================
+// Formação Técnico iPhone — app do aluno em um único arquivo.
+// Gerado por scripts/gerar-site.mjs a partir de src/content/curso.ts.
+// Para mudar aulas ou materiais, edite curso.ts e rode: npm run site
+// ======================================================================
+const DADOS = {"curso":{"nome":"Formação Técnico iPhone","boasVindas":"Aprenda, pratique e se torne um técnico iPhone de verdade.","imagemHero":"img/hero-iphone.jpg","whatsappSuporte":"","liberacaoSequencial":true},"modulos":[{"id":"fundamentos","numero":1,"titulo":"Conhecendo o iPhone","nivel":"basico","imagem":"img/modulos/conhecendo-o-iphone.jpg","aulas":[{"slug":"vale-a-pena","titulo":"Ainda vale a pena consertar celular?","youtubeId":"LfIt6AWVXwk","canal":"Nice Cell Assistec R.R","minutos":12},{"slug":"quanto-custa-comecar","titulo":"Quanto custa para começar a consertar iPhone","youtubeId":"Rt7PLD5urZk","canal":"Edy CompCel","minutos":11},{"slug":"celular-por-dentro","titulo":"O celular por dentro: componentes e setores","youtubeId":"s1B65xPXfgQ","canal":"Curso Manutenção de Celular PRO","minutos":21},{"slug":"componentes-placa","titulo":"Os componentes da placa explicados","youtubeId":"_LPL8PLhKVw","canal":"Nice Cell Assistec R.R","minutos":26},{"slug":"do-zero-aos-primeiros-ganhos","titulo":"Do zero aos primeiros ganhos trabalhando em casa","youtubeId":"sUuLLJMYtBw","canal":"Nice Cell Assistec R.R","minutos":25}]},{"id":"ferramentas-e-bancada","numero":2,"titulo":"Ferramentas e Bancada","nivel":"basico","imagem":"img/modulos/ferramentas-e-tecnicas.jpg","aulas":[{"slug":"ferramentas-obrigatorias","titulo":"10 ferramentas obrigatórias para começar","youtubeId":"6gQKb_D560Q","canal":"Nice Cell Assistec R.R","minutos":14},{"slug":"ferramentas-iphone","titulo":"Ferramentas específicas para iPhone","youtubeId":"6Sw25D2f0tU","canal":"Nice Cell Assistec R.R","minutos":16},{"slug":"montando-bancada","titulo":"Como montar sua bancada do jeito certo","youtubeId":"3DwojuJkzb4","canal":"Nice Cell Assistec R.R","minutos":10},{"slug":"estacao-solda-ar-quente","titulo":"Estação de solda e ar quente","youtubeId":"Naed_42mXZg","canal":"Curso Manutenção de Celular PRO","minutos":13},{"slug":"multimetro","titulo":"Como usar o multímetro no conserto de celular","youtubeId":"-rSLCoUibb4","canal":"Nice Cell Assistec R.R","minutos":17},{"slug":"fonte-bancada","titulo":"Todas as funções da fonte de bancada","youtubeId":"ChSh149iGgs","canal":"Nice Cell Assistec R.R","minutos":19}]},{"id":"desmontagem-e-montagem","imagem":"img/modulos/desmontagem-e-montagem.jpg","numero":3,"titulo":"Desmontagem e Montagem","nivel":"basico","aulas":[{"slug":"protecao-antiestatica","titulo":"Proteção antiestática: manta, luva ou pulseira?","youtubeId":"7fgn7Kt6-bM","canal":"Nice Cell Assistec R.R","minutos":9},{"slug":"abrir-iphone","titulo":"Como abrir qualquer iPhone sem quebrar a tela","youtubeId":"kPaOCN-jrPs","canal":"Nice Cell Assistec R.R","minutos":12},{"slug":"desmontagem-iphone-11","titulo":"Desmontagem completa do iPhone 11","youtubeId":"NgmnbLkkSCs","canal":"Mind You Tec","minutos":12},{"slug":"mapa-parafusos","titulo":"Mapa dos parafusos: nunca mais misture","youtubeId":"UpLEVvTSoug","canal":"Edy CompCel","minutos":12},{"slug":"vedacao","titulo":"Vedação do iPhone na montagem","youtubeId":"WyffBRzZwJ0","canal":"Vanderlei Oliota - Viva de Manutenção","minutos":7}]},{"id":"diagnostico","imagem":"img/modulos/diagnostico.jpg","numero":4,"titulo":"Diagnóstico de Defeitos","nivel":"intermediario","aulas":[{"slug":"checklist-entrada","titulo":"Checklist de entrada do aparelho","youtubeId":"V-FDYYPV4hA","canal":"Nice Cell Assistec R.R","minutos":9},{"slug":"programas-diagnostico","titulo":"Programas para diagnosticar iPhones","youtubeId":"ODPqoQmukd8","canal":"Nice Cell Assistec R.R","minutos":22},{"slug":"chegou-desligado","titulo":"Aparelho chegou desligado: como achar o defeito","youtubeId":"IpxVj1y5Bz4","canal":"Nice Cell Assistec R.R","minutos":13},{"slug":"nao-carrega","titulo":"iPhone não carrega ou com mau contato","youtubeId":"q7Kus94AJjk","canal":"AndreCisp","minutos":7},{"slug":"desoxidacao","titulo":"Caiu na água: desoxidação da placa","youtubeId":"1fL8dEixFnk","canal":"Nice Cell Assistec R.R","minutos":13},{"slug":"mensagens-pecas","titulo":"Mensagens de tela e bateria não genuínas","youtubeId":"kJDiyseJqyY","canal":"Anderson Silva | Reparo iPhone","minutos":4}]},{"id":"troca-de-tela","numero":5,"titulo":"Troca de Tela","nivel":"intermediario","imagem":"img/modulos/troca-de-tela.jpg","aulas":[{"slug":"tipos-de-tela","titulo":"Tela original, OLED, Incell e paralela","youtubeId":"IgyEiJvxNjg","canal":"Nice Cell Assistec R.R","minutos":15},{"slug":"touch-nao-funciona","titulo":"Touch não funciona mesmo trocando a tela","youtubeId":"wnKHPJN7VX0","canal":"Pongoncell Serviços Simples","minutos":4},{"slug":"troca-tela-iphone-x","titulo":"Troca de tela do iPhone X passo a passo","youtubeId":"g-qzgTJFe50","canal":"Nill Cell","minutos":13},{"slug":"troca-tela-iphone-11","titulo":"Troca de tela do iPhone 11 passo a passo","youtubeId":"ppt1d1oiJc0","canal":"HD Tec Celular","minutos":8},{"slug":"troca-tela-iphone-12","titulo":"Troca de tela do iPhone 12 passo a passo","youtubeId":"xf37rVtaW6E","canal":"HD Tec Celular","minutos":10},{"slug":"troca-tela-iphone-13","titulo":"Troca de tela do iPhone 13","youtubeId":"OabRWM2l6IA","canal":"NeoTecnológica","minutos":19},{"slug":"true-tone","titulo":"Recuperando o True Tone","youtubeId":"wGr3c9apwPQ","canal":"Nice Cell Assistec R.R","minutos":10},{"slug":"face-id-troca-tela","titulo":"Face ID parou depois da troca de tela?","youtubeId":"VnmvnMXNloM","canal":"Léo Tech","minutos":7}]},{"id":"troca-de-bateria","numero":6,"titulo":"Troca de Bateria","nivel":"intermediario","imagem":"img/modulos/troca-de-bateria.jpg","aulas":[{"slug":"quando-trocar-bateria","titulo":"Saúde da bateria: quando trocar","youtubeId":"snp8hkyoSAU","canal":"Gabriel Miranda","minutos":8},{"slug":"troca-bateria-iphone-11","titulo":"Troca de bateria do iPhone 11","youtubeId":"ld17benGCfA","canal":"LeonardoMatosTec","minutos":11},{"slug":"troca-bateria-iphone-12","titulo":"Troca de bateria do iPhone 12","youtubeId":"Jt71S_u-dt8","canal":"HD Tec Celular","minutos":7},{"slug":"bateria-estufada","titulo":"Bateria estufada: troca com segurança","youtubeId":"wrN0OPOoOwg","canal":"Oziel Vidal","minutos":7},{"slug":"bateria-sem-mensagem","titulo":"Trocando a bateria sem mensagem","youtubeId":"TgrWtjHl1I4","canal":"Nice Cell Assistec R.R","minutos":8},{"slug":"testando-baterias","titulo":"Testando baterias que não deixam mensagem","youtubeId":"RcnqgSLIj9E","canal":"Nice Cell Assistec R.R","minutos":11}]},{"id":"outros-reparos","imagem":"img/modulos/outros-reparos.jpg","numero":7,"titulo":"Outros Reparos","nivel":"avancado","aulas":[{"slug":"conector-carga","titulo":"Troca do conector de carga (iPhone 11)","youtubeId":"wkHusMw4pS8","canal":"LINK CELL TUTORIAIS","minutos":32},{"slug":"camera-traseira","titulo":"Troca da câmera traseira","youtubeId":"PH8wQyijTq0","canal":"HD Tec Celular","minutos":7},{"slug":"camera-frontal","titulo":"Câmera frontal sem perder o Face ID","youtubeId":"PA-2hGdeWwQ","canal":"PB Tech Info","minutos":3},{"slug":"alto-falante-auricular","titulo":"Troca do alto-falante auricular","youtubeId":"QvLMnzTrDzg","canal":"Ted Reis Especialista em iPhone","minutos":14},{"slug":"tampa-traseira","titulo":"Troca da tampa traseira sem laser","youtubeId":"C4_H3YvGHR0","canal":"Cyber Cell - Conserto de Celular","minutos":12},{"slug":"flex-power","titulo":"Troca do flex do botão power","youtubeId":"RbwvtY9eJ9U","canal":"Fernando Feteccel","minutos":5},{"slug":"lente-camera","titulo":"Troca da lente da câmera","youtubeId":"USO2h4NvOsk","canal":"William Escobar / Stilo Cell","minutos":5},{"slug":"limpeza-alto-falantes","titulo":"Limpeza dos alto-falantes","youtubeId":"i813GfsBghk","canal":"Daniel About Tech Brasil","minutos":5}]},{"id":"negocio","imagem":"img/modulos/negocio.jpg","numero":8,"titulo":"Seu Negócio de Assistência","nivel":"intermediario","aulas":[{"slug":"quanto-cobrar","titulo":"Como saber quanto cobrar","youtubeId":"tTwg4nga_0A","canal":"Nice Cell Assistec R.R","minutos":19},{"slug":"fornecedores","titulo":"Como encontrar fornecedores de peças","youtubeId":"7p6grpfuS-0","canal":"Nice Cell Assistec R.R","minutos":9},{"slug":"atendimento","titulo":"Como atender melhor e atrair clientes","youtubeId":"YvAGchf48WA","canal":"Zunta Tec","minutos":11},{"slug":"garantia","titulo":"Garantia: o que faz o cliente perder","youtubeId":"OsXWLwWubYA","canal":"Nice Cell Assistec R.R","minutos":10},{"slug":"conseguir-clientes","titulo":"Como conseguir clientes para sua assistência","youtubeId":"O7hQ4mvqFuQ","canal":"Zunta Tec","minutos":18},{"slug":"instagram","titulo":"Atraindo clientes pelo Instagram","youtubeId":"abN2i-fJ9SQ","canal":"Nice Cell Assistec R.R","minutos":12}]}],"materiais":[{"id":"ferramentas-bancada","titulo":"Lista de Ferramentas para Montar a Bancada","categoria":"tecnico","tipo":"ferramentas","tamanho":"12 páginas · 918 KB","arquivo":"materiais/ferramentas-bancada.pdf","plano":"basico"},{"id":"fornecedores","titulo":"Guia de Fornecedores de Peças","categoria":"negocio","tipo":"fornecedores","tamanho":"9 páginas · 1,0 MB","arquivo":"materiais/fornecedores.pdf","plano":"basico","liberaEmDias":7},{"id":"tabela-precos","titulo":"Tabela de Preços de Serviços","categoria":"negocio","tipo":"precos","tamanho":"10 páginas · 905 KB","arquivo":"materiais/tabela-precos.pdf","plano":"basico","liberaEmDias":7},{"id":"diagnostico-rapido","titulo":"Diagnóstico Rápido de Defeitos","categoria":"tecnico","tipo":"diagnostico","tamanho":"11 páginas · 867 KB","arquivo":"materiais/diagnostico-rapido.pdf","plano":"basico"},{"id":"vidro-traseiro","titulo":"Troca de Vidro Traseiro","categoria":"tecnico","tipo":"vidro","tamanho":"9 páginas · 701 KB","arquivo":"materiais/vidro-traseiro.pdf","plano":"basico","liberaEmDias":7},{"id":"iphone-molhado","titulo":"Reparo de iPhone Molhado (limpeza)","categoria":"tecnico","tipo":"molhado","tamanho":"10 páginas · 832 KB","arquivo":"materiais/iphone-molhado.pdf","plano":"basico"},{"id":"atendimento-whatsapp","titulo":"Como Atender Clientes pelo WhatsApp","categoria":"negocio","tipo":"whatsapp","tamanho":"11 páginas · 895 KB","arquivo":"materiais/atendimento-whatsapp.pdf","plano":"basico"},{"id":"instagram","titulo":"Como Divulgar sua Assistência no Instagram","categoria":"negocio","tipo":"instagram","tamanho":"10 páginas · 811 KB","arquivo":"materiais/instagram.pdf","plano":"basico","liberaEmDias":7},{"id":"termo-garantia","titulo":"Modelo de Termo de Garantia do Serviço","categoria":"extras","tipo":"garantia","tamanho":"8 páginas · 860 KB","arquivo":"materiais/termo-garantia.pdf","plano":"basico"}],"avisos":[{"id":"boas-vindas","titulo":"Bem-vindo(a) à Formação!","texto":"Comece pelo Módulo 1 e marque cada aula como concluída para liberar o próximo módulo.","link":"#/aulas","rotulo":"Ver aulas"},{"id":"materiais","titulo":"Seus materiais em PDF","texto":"5 materiais já estão liberados. Os outros 4 chegam 7 dias depois do seu primeiro acesso.","link":"#/materiais","rotulo":"Ver materiais"}]};
+const ICONES = {"house":"\u003cpath d=\"M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8\"/>\u003cpath d=\"M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/>","square-play":"\u003crect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/>\u003cpath d=\"M9 9.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997A1 1 0 0 1 9 14.996z\"/>","file-text":"\u003cpath d=\"M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z\"/>\u003cpath d=\"M14 2v5a1 1 0 0 0 1 1h5\"/>\u003cpath d=\"M10 9H8\"/>\u003cpath d=\"M16 13H8\"/>\u003cpath d=\"M16 17H8\"/>","user":"\u003cpath d=\"M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2\"/>\u003ccircle cx=\"12\" cy=\"7\" r=\"4\"/>","bell":"\u003cpath d=\"M10.268 21a2 2 0 0 0 3.464 0\"/>\u003cpath d=\"M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326\"/>","chevron-right":"\u003cpath d=\"m9 18 6-6-6-6\"/>","chevron-left":"\u003cpath d=\"m15 18-6-6 6-6\"/>","clock":"\u003ccircle cx=\"12\" cy=\"12\" r=\"10\"/>\u003cpath d=\"M12 6v6l4 2\"/>","circle-check":"\u003ccircle cx=\"12\" cy=\"12\" r=\"10\"/>\u003cpath d=\"m16 9-5.5 5.5L8 12\"/>","wrench":"\u003cpath d=\"M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z\"/>","trophy":"\u003cpath d=\"M10 14.66V17a1 1 0 0 1-1 1 2 2 0 0 0-2 2v2\"/>\u003cpath d=\"M14 14.66V17a1 1 0 0 0 1 1 2 2 0 0 1 2 2v2\"/>\u003cpath d=\"M17.916 10H19.5A2.5 2.5 0 0 0 22 7.5V5a1 1 0 0 0-1-1h-3\"/>\u003cpath d=\"M4 22h16\"/>\u003cpath d=\"M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z\"/>\u003cpath d=\"M6.084 10H4.5A2.5 2.5 0 0 1 2 7.5V5a1 1 0 0 1 1-1h3\"/>","lock":"\u003crect width=\"18\" height=\"11\" x=\"3\" y=\"11\" rx=\"2\" ry=\"2\"/>\u003cpath d=\"M7 11V7a5 5 0 0 1 10 0v4\"/>","check":"\u003cpath d=\"M20 6 9 17l-5-5\"/>","play":"\u003cpath d=\"M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z\"/>","search":"\u003cpath d=\"m21 21-4.34-4.34\"/>\u003ccircle cx=\"11\" cy=\"11\" r=\"8\"/>","arrow-down":"\u003cpath d=\"M12 5v14\"/>\u003cpath d=\"m19 12-7 7-7-7\"/>","arrow-right":"\u003cpath d=\"M5 12h14\"/>\u003cpath d=\"m12 5 7 7-7 7\"/>","badge-dollar-sign":"\u003cpath d=\"M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z\"/>\u003cpath d=\"M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8\"/>\u003cpath d=\"M12 18V6\"/>","camera":"\u003cpath d=\"M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z\"/>\u003ccircle cx=\"12\" cy=\"13\" r=\"3\"/>","droplets":"\u003cpath d=\"M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z\"/>\u003cpath d=\"M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97\"/>","file-check":"\u003cpath d=\"M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z\"/>\u003cpath d=\"M14 2v5a1 1 0 0 0 1 1h5\"/>\u003cpath d=\"m9 15 2 2 4-4\"/>","message-circle":"\u003cpath d=\"M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719\"/>","smartphone":"\u003crect width=\"14\" height=\"20\" x=\"5\" y=\"2\" rx=\"2\" ry=\"2\"/>\u003cpath d=\"M12 18h.01\"/>","stethoscope":"\u003cpath d=\"M11 2v2\"/>\u003cpath d=\"M5 2v2\"/>\u003cpath d=\"M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1\"/>\u003cpath d=\"M8 15a6 6 0 0 0 12 0v-3\"/>\u003ccircle cx=\"20\" cy=\"10\" r=\"2\"/>","truck":"\u003cpath d=\"M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2\"/>\u003cpath d=\"M15 18H9\"/>\u003cpath d=\"M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14\"/>\u003ccircle cx=\"17\" cy=\"18\" r=\"2\"/>\u003ccircle cx=\"7\" cy=\"18\" r=\"2\"/>","headphones":"\u003cpath d=\"M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3\"/>","log-out":"\u003cpath d=\"m16 17 5-5-5-5\"/>\u003cpath d=\"M21 12H9\"/>\u003cpath d=\"M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4\"/>","pencil":"\u003cpath d=\"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z\"/>\u003cpath d=\"m15 5 4 4\"/>","settings":"\u003cpath d=\"M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915\"/>\u003ccircle cx=\"12\" cy=\"12\" r=\"3\"/>","trash":"\u003cpath d=\"M10 11v6\"/>\u003cpath d=\"M14 11v6\"/>\u003cpath d=\"M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6\"/>\u003cpath d=\"M3 6h18\"/>\u003cpath d=\"M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2\"/>","image-plus":"\u003cpath d=\"M16 5h6\"/>\u003cpath d=\"M19 2v6\"/>\u003cpath d=\"M21 11.5V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7.5\"/>\u003cpath d=\"m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21\"/>\u003ccircle cx=\"9\" cy=\"9\" r=\"2\"/>","x":"\u003cpath d=\"M18 6 6 18\"/>\u003cpath d=\"m6 6 12 12\"/>","share":"\u003cpath d=\"M12 2v13\"/>\u003cpath d=\"m16 6-4-4-4 4\"/>\u003cpath d=\"M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8\"/>","square-plus":"\u003crect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\"/>\u003cpath d=\"M8 12h8\"/>\u003cpath d=\"M12 8v8\"/>","ellipsis-vertical":"\u003ccircle cx=\"12\" cy=\"12\" r=\"1\"/>\u003ccircle cx=\"12\" cy=\"5\" r=\"1\"/>\u003ccircle cx=\"12\" cy=\"19\" r=\"1\"/>","ellipsis":"\u003ccircle cx=\"12\" cy=\"12\" r=\"1\"/>\u003ccircle cx=\"19\" cy=\"12\" r=\"1\"/>\u003ccircle cx=\"5\" cy=\"12\" r=\"1\"/>","download":"\u003cpath d=\"M12 15V3\"/>\u003cpath d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"/>\u003cpath d=\"m7 10 5 5 5-5\"/>","copy":"\u003crect width=\"14\" height=\"14\" x=\"8\" y=\"8\" rx=\"2\" ry=\"2\"/>\u003cpath d=\"M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2\"/>"};
+
+const { curso, modulos, materiais, avisos } = DADOS;
+const todasAulas = modulos.flatMap((m) => m.aulas);
+const $app = document.getElementById("app");
+const DIA = 864e5;
+
+// ---------- utilidades ----------
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+function ic(nome, o = {}) {
+  const s = o.s ?? 24;
+  return `<svg class="ic ${o.cls ?? ""}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="${o.fill ? "currentColor" : "none"}" stroke="${o.stroke ?? "currentColor"}" stroke-width="${o.sw ?? 2}" stroke-linecap="round" stroke-linejoin="round"${o.style ? ` style="${o.style}"` : ""}>${ICONES[nome] ?? ""}</svg>`;
+}
+const duracaoTotal = (min) => { const h = Math.floor(min / 60), m = min % 60; return h ? `${h}h${m ? ` ${m}min` : ""}` : `${m} min`; };
+const thumbAula = (a) => (a.youtubeId ? `https://i.ytimg.com/vi/${a.youtubeId}/hqdefault.jpg` : "");
+const capaModulo = (m) => m.imagem || thumbAula(m.aulas[0]);
+const buscarAula = (slug) => todasAulas.find((a) => a.slug === slug);
+const moduloDaAula = (slug) => modulos.find((m) => m.aulas.some((a) => a.slug === slug));
+const proximaAula = (slug) => todasAulas[todasAulas.findIndex((a) => a.slug === slug) + 1];
+const primeiroNome = (n) => n.trim().split(/\s+/)[0] || "";
+
+// ---------- perfil salvo no aparelho ----------
+const CHAVE = "tecnico-iphone:perfil";
+const CHAVE_PA = "tecnico-iphone:primeiro-acesso";
+function lerPerfil() {
+  try {
+    const p = JSON.parse(localStorage.getItem(CHAVE) || "null");
+    return p && typeof p.nome === "string" ? { concluidas: [], historico: [], ...p } : null;
+  } catch { return null; }
+}
+function gravarPerfil(p, renderizar = true) {
+  if (p) localStorage.setItem(CHAVE, JSON.stringify(p)); else localStorage.removeItem(CHAVE);
+  if (renderizar) render();
+}
+function atualizar(mudar, renderizar = true) { const p = lerPerfil(); if (p) gravarPerfil(mudar(p), renderizar); }
+function primeiroAcesso(p) {
+  let d = localStorage.getItem(CHAVE_PA);
+  if (!d || isNaN(Date.parse(d))) { d = p.criadoEm; localStorage.setItem(CHAVE_PA, d); }
+  return d;
+}
+async function prepararFoto(arquivo, lado = 320) {
+  const bmp = await createImageBitmap(arquivo);
+  const corte = Math.min(bmp.width, bmp.height), t = Math.min(lado, corte);
+  const c = document.createElement("canvas"); c.width = c.height = t;
+  c.getContext("2d").drawImage(bmp, (bmp.width - corte) / 2, (bmp.height - corte) / 2, corte, corte, 0, 0, t, t);
+  bmp.close?.();
+  return c.toDataURL("image/jpeg", 0.85);
+}
+
+// ---------- progresso ----------
+function progressoModulo(m, feitas) {
+  const n = m.aulas.filter((a) => feitas.has(a.slug)).length;
+  return { feitas: n, total: m.aulas.length, pct: Math.round((n / m.aulas.length) * 100) };
+}
+function statusModulo(m, feitas) {
+  if (progressoModulo(m, feitas).pct === 100) return "concluido";
+  const i = modulos.indexOf(m);
+  if (curso.liberacaoSequencial && i > 0 && progressoModulo(modulos[i - 1], feitas).pct < 100) return "bloqueado";
+  return "andamento";
+}
+const moduloAtual = (f) => modulos.find((m) => statusModulo(m, f) === "andamento") ?? modulos[modulos.length - 1];
+function proximaPendente(f) { const m = moduloAtual(f); return m.aulas.find((a) => !f.has(a.slug)) ?? m.aulas[0]; }
+function progressoGeral(f) {
+  const n = todasAulas.filter((a) => f.has(a.slug)).length;
+  return { concluidos: modulos.filter((m) => progressoModulo(m, f).pct === 100).length, total: modulos.length, aulas: n, totalAulas: todasAulas.length, pct: Math.round((n / todasAulas.length) * 100) };
+}
+
+// ---------- componentes ----------
+const barra = (pct) => `<div class="barra"><i style="width:${pct}%"></i></div>`;
+function anel(pct, t = 80) {
+  const r = (t - 10) / 2, c = 2 * Math.PI * r;
+  return `<div class="anel" style="width:${t}px;height:${t}px"><svg width="${t}" height="${t}" style="transform:rotate(-90deg)"><circle cx="${t / 2}" cy="${t / 2}" r="${r}" stroke="rgba(255,255,255,.08)" stroke-width="8" fill="none"/><circle cx="${t / 2}" cy="${t / 2}" r="${r}" stroke="#1e8bff" stroke-width="8" fill="none" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c * (1 - pct / 100)}" style="filter:drop-shadow(0 0 4px rgba(30,139,255,.6))"/></svg><span>${pct}%</span></div>`;
+}
+const thumb = (src, cls, estilo = "") => `<div class="thumb ${cls}" style="${estilo}">${src ? `<img src="${esc(src)}" alt="" loading="lazy">` : `<div style="position:absolute;inset:0;display:grid;place-items:center;color:rgba(30,139,255,.7)">${ic("smartphone", { s: 40, sw: 1.2 })}</div>`}</div>`;
+function cabecalho(titulo, sub, icone, acao = "") {
+  return `<header class="cab">${icone ? `<span style="margin-top:4px;color:var(--marca)">${ic(icone, { s: 44, fill: true, stroke: "#05070d", sw: 1.5 })}</span>` : ""}<div class="f1"><h1>${titulo}</h1><p>${sub}</p></div>${acao}</header>`;
+}
+const botaoBusca = (acao, aberto) => `<button class="btn-ic" data-acao="${acao}" aria-label="Buscar" style="margin-top:8px;padding:6px;color:${aberto ? "var(--marca)" : "#fff"}">${ic("search", { s: 26 })}</button>`;
+const chips = (opcoes, valor, acao) => `<div class="chips sem-scroll">${opcoes.map(([id, l]) => `<button class="chip ${id === valor ? "ativo" : ""}" data-acao="${acao}" data-v="${id}">${l}</button>`).join("")}</div>`;
+function logo() {
+  return `<div class="logo"><div class="logo-ic">${ic("smartphone", { s: 48, sw: 1.6 })}<span class="chave">${ic("wrench", { s: 22, sw: 2.4 })}</span></div><p>Formação<br>Técnico <span class="azul">iPhone</span></p></div>`;
+}
+function nav(rotaAtual) {
+  const abas = [["", "Home", "house"], ["aulas", "Aulas", "square-play"], ["materiais", "Materiais", "file-text"], ["perfil", "Perfil", "user"]];
+  const ativa = (id) => (id === "" ? rotaAtual === "" : rotaAtual === id || (id === "aulas" && (rotaAtual === "aula" || rotaAtual === "modulo")));
+  return `<nav class="nav"><ul>${abas.map(([id, l, i]) => { const a = ativa(id); return `<li><a href="#/${id}" class="${a ? "ativo" : ""}">${ic(i, { s: 24, sw: a ? 2.4 : 1.6, fill: a, cls: a ? "ic-ativo" : "" })}${l}</a></li>`; }).join("")}</ul></nav>`;
+}
+
+// ---------- instalação (PWA) ----------
+const CHAVE_INSTALAR = "tecnico-iphone:instalar-dispensado";
+const ua = navigator.userAgent;
+const ehIOS = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+const ehAndroid = /Android/i.test(ua);
+const ehAppInterno = /Instagram|FBAN|FBAV|FB_IAB|FBIOS|Line\/|TikTok|musical_ly|Snapchat/i.test(ua);
+const ehInstalado = () => matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+let promptInstalar = null;
+window.addEventListener("beforeinstallprompt", (e) => { e.preventDefault(); promptInstalar = e; const r = rotaAtual().nome; if (r === "" || r === "entrar") render(); });
+window.addEventListener("appinstalled", () => { localStorage.setItem(CHAVE_INSTALAR, "instalado"); ui.folha = null; render(); });
+function tipoInstalacao() {
+  if (ehAppInterno) return "app-interno";
+  if (promptInstalar) return "prompt";
+  if (ehIOS) return "ios";
+  if (ehAndroid) return "android";
+  return "computador";
+}
+const chipIc = (nome) => `<span class="chip-ic">${ic(nome, { s: 15 })}</span>`;
+// Cartão "Instale o app" no topo (some ao instalar; o ✕ esconde por 7 dias).
+const cartaoEscondido = () => { const v = localStorage.getItem(CHAVE_INSTALAR); return v === "instalado" || (!!v && Date.now() - Number(v) < 7 * DIA); };
+const mostrarCartaoInstalar = () => !ehInstalado() && !cartaoEscondido() && (!!promptInstalar || ehIOS || ehAndroid);
+function cartaoInstalar() {
+  if (!mostrarCartaoInstalar()) return "";
+  return `<div class="ib" role="region" aria-label="Instalar o app"><img src="icones/icone-192.png" alt=""><div class="f1"><b>Instale o app no seu celular</b><small>Acesso rápido, em tela cheia</small></div><button class="ibb" data-acao="instalar">Instalar</button><button class="ibx" data-acao="fechar-cartao-instalar" aria-label="Fechar aviso">${ic("x", { s: 18 })}</button></div>`;
+}
+// Janela com o passo a passo (quando o navegador não oferece a instalação automática).
+function folhaInstalar() {
+  let titulo, passos, nota, extra = "";
+  if (ehAppInterno) {
+    titulo = "Abra no navegador para instalar";
+    passos = [`Toque em <b>⋯</b> ou <b>⋮</b>, no canto de cima.`, `Escolha <b>Abrir no navegador</b> (Safari ou Chrome).`, `No navegador, toque em <b>Instalar</b> no topo do app.`];
+    nota = "O Instagram e o Facebook não deixam instalar apps pelo navegador deles.";
+    extra = `<button class="btn btn-claro mt3" style="border-radius:16px" data-acao="copiar-link">${ic("copy", { s: 18 })} Copiar link do app</button>`;
+  } else if (ehIOS) {
+    titulo = "Instalar no iPhone";
+    passos = [`Abra este endereço no <b>Safari</b>.`, `Toque no botão <b>Compartilhar</b> ${chipIc("share")} na barra de baixo da tela.`, `Role a lista e toque em <b>Adicionar à Tela de Início</b>.`, `Toque em <b>Adicionar</b>, no canto de cima.`];
+    nota = "Pronto: o ícone do app aparece na sua tela inicial.";
+  } else if (ehAndroid) {
+    titulo = "Instalar no Android";
+    passos = [`Toque no menu <b>⋮</b> do navegador (canto de cima).`, `Toque em <b>Instalar app</b> ou <b>Adicionar à tela inicial</b>.`, `Confirme em <b>Instalar</b>.`];
+    nota = "Use o Chrome, se a opção não aparecer.";
+  } else {
+    titulo = "Instalar no computador";
+    passos = [`No Chrome ou no Edge, clique no ícone de instalar ${chipIc("download")} na barra de endereço.`, `Confirme em <b>Instalar</b>.`];
+    nota = "Para a melhor experiência, abra este link no celular.";
+  }
+  return `<div class="folha-fundo" data-acao="fechar-folha"><div class="folha cartao" data-parar role="dialog" aria-modal="true" aria-label="Como instalar"><h2>${titulo}</h2>
+    <ol class="lista-inst">${passos.map((p) => `<li>${p}</li>`).join("")}</ol><p class="t2" style="font-size:14px">${nota}</p>${extra}
+    <button class="btn azul-bg mt5" style="border-radius:16px" data-acao="fechar-folha">Entendi</button></div></div>`;
+}
+
+// ---------- avisos (sino) ----------
+const CHAVE_LIDOS = "tecnico-iphone:avisos-lidos";
+function avisosAtuais(p) {
+  const lista = [...avisos];
+  const inicio = primeiroAcesso(p);
+  if (materiais.some((m) => m.liberaEmDias) && materiais.every((m) => falta(m, inicio) === 0)) {
+    lista.unshift({ id: "materiais-liberados", titulo: "Novos materiais liberados!", texto: "Os materiais que estavam travados já estão disponíveis na aba Materiais.", link: "#/materiais", rotulo: "Ver materiais" });
+  }
+  return lista;
+}
+const avisosLidos = () => { try { return JSON.parse(localStorage.getItem(CHAVE_LIDOS) || "[]"); } catch { return []; } };
+const contarNaoLidos = (p) => { const l = avisosLidos(); return avisosAtuais(p).filter((a) => !l.includes(a.id)).length; };
+function folhaAvisos(p) {
+  const lista = avisosAtuais(p), lidos = avisosLidos();
+  localStorage.setItem(CHAVE_LIDOS, JSON.stringify([...new Set([...lidos, ...lista.map((a) => a.id)])]));
+  const itens = lista.length
+    ? lista.map((a) => `<li class="aviso-item cartao mt2 ${lidos.includes(a.id) ? "" : "novo"}"><span class="ponto"></span><div class="f1"><p style="font-size:15px;font-weight:600">${esc(a.titulo)}</p><p class="t2 mt1" style="font-size:14px;line-height:1.45">${esc(a.texto)}</p>${a.link ? `<a class="aviso-link" href="${esc(a.link)}">${esc(a.rotulo || "Ver")} ${ic("chevron-right", { s: 16 })}</a>` : ""}</div></li>`).join("")
+    : `<p class="t2 mt4" style="text-align:center">Nenhum aviso por enquanto.</p>`;
+  return `<div class="folha-fundo" data-acao="fechar-folha"><div class="folha cartao" data-parar role="dialog" aria-modal="true" aria-label="Avisos"><div class="flex entre"><h2>Avisos</h2><button class="btn-ic btn-claro" style="width:34px;height:34px" data-acao="fechar-folha" aria-label="Fechar">${ic("x", { s: 18 })}</button></div><ul class="mt2" style="max-height:60vh;overflow:auto">${itens}</ul></div></div>`;
+}
+if ("serviceWorker" in navigator && location.protocol !== "file:") window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+
+// ---------- estado da interface ----------
+const ui = { filtroAulas: "todos", buscaAulas: null, filtroMat: "todos", buscaMat: null, editandoNome: false, folha: null, erroFoto: "" };
+
+// ---------- telas ----------
+function telaEntrar() {
+  return `<main class="fundo-app entrar">
+    ${curso.imagemHero ? `<div class="topo"><img src="${esc(curso.imagemHero)}" alt=""><i></i></div>` : ""}
+    <div class="conteudo">${cartaoInstalar()}${logo()}
+      <form id="form-entrar">
+        <h1>Crie seu perfil</h1>
+        <p class="mt2 t2" style="font-size:15px">Como você quer ser chamado? Seu progresso fica salvo neste aparelho.</p>
+        <label for="nome" style="display:block;margin-top:24px;font-size:14px;font-weight:500;color:#d4d4d4">Seu nome</label>
+        <input id="nome" class="cartao" maxlength="40" autocomplete="given-name" placeholder="Ex.: Gabriel">
+        <button id="btn-entrar" class="btn azul-bg" type="submit" disabled>Entrar no app ${ic("arrow-right", { s: 20 })}</button>
+        <p class="flex g2 mt5 t2" style="font-size:12px;line-height:1.5;align-items:flex-start">${ic("smartphone", { s: 16, style: "margin-top:2px" })}Não precisa de senha. Se trocar de celular ou limpar os dados do navegador, é só criar o perfil de novo.</p>
+      </form>
+    </div></main>`;
+}
+
+function telaHome(p, f) {
+  const modulo = moduloAtual(f), prog = progressoModulo(modulo, f);
+  const ultima = p.historico[0] && buscarAula(p.historico[0]);
+  const continuar = ultima && !f.has(ultima.slug) ? ultima : proximaPendente(f);
+  const vistas = p.historico.map(buscarAula).filter(Boolean).slice(0, 6);
+  const recentes = vistas.length ? vistas : modulo.aulas.slice(0, 4);
+  const nome = primeiroNome(p.nome);
+  const atalhos = [["#/aulas", "Minhas Aulas", "play", "var(--marca)", true], ["#/materiais", "Materiais de Apoio", "file-text", "var(--marca)", false], ["#/materiais/tecnico", "Ferramentas Recomendadas", "wrench", "var(--marca)", false], ["#/perfil", "Meu Certificado", "trophy", "#fbbf24", true]];
+  const naoLidos = contarNaoLidos(p);
+  return `<main>${cartaoInstalar()}
+    <header class="flex entre">${logo()}<button class="btn-ic" data-acao="abrir-avisos" style="position:relative;padding:4px;color:var(--marca)" aria-label="Avisos${naoLidos ? ` (${naoLidos} novos)` : ""}">${ic("bell", { s: 30, sw: 1.8 })}${naoLidos ? `<span class="badge" style="color:#fff">${naoLidos}</span>` : ""}</button></header>
+    <section class="hero"><div class="brilho"></div>
+      ${curso.imagemHero ? `<img class="foto" src="${esc(curso.imagemHero)}" alt=""><div class="fade"></div>` : ""}
+      <div class="txt"><h2>${nome ? `Olá, ${esc(nome)}!` : "Seja bem-vindo(a)!"}</h2><p>${esc(curso.boasVindas)}</p>
+        <a class="btn-hero" href="#/aula/${continuar.slug}"><span class="bola">${ic("play", { s: 10, fill: true })}</span>${f.size || p.historico.length ? "Continuar assistindo" : "Começar o curso"}</a></div>
+    </section>
+    <section class="cartao r-2xl flex g5 mt3" style="padding:16px">${anel(prog.pct)}
+      <div class="f1"><p class="t2" style="font-size:14px">Seu progresso no curso</p><p class="mt1" style="font-size:15px;font-weight:600">Módulo: ${esc(modulo.titulo)}</p>
+        <div class="flex g3 mt3">${barra(prog.pct)}<span class="t2" style="font-size:12px;flex-shrink:0">${prog.feitas} de ${prog.total} aulas</span></div></div>
+    </section>
+    <div class="flex entre mt5"><h2 style="font-size:20px;font-weight:600">${vistas.length ? "Aulas Recentes" : "Comece por aqui"}</h2><a href="#/aulas" class="flex g1 azul" style="font-size:14px">Ver todas ${ic("chevron-right", { s: 16 })}</a></div>
+    <div class="recentes sem-scroll">${recentes.map((a) => `<a class="recente" href="#/aula/${a.slug}"><div style="position:relative;width:58%;flex-shrink:0">${thumb(thumbAula(a), "", "width:100%;aspect-ratio:16/10;border-radius:12px")}<span class="play-redondo">${ic("play", { s: 22, fill: true, style: "margin-left:2px" })}</span></div>
+      <div class="info cartao"><p class="clamp3" style="font-size:15px;font-weight:500;line-height:1.3">${esc(a.titulo)}</p><div class="flex entre t2" style="font-size:14px"><span class="flex g1">${ic("clock", { s: 16 })} ${a.minutos} min</span>${f.has(a.slug) ? `<span style="color:#22c55e">${ic("circle-check", { s: 22, fill: true, stroke: "#fff" })}</span>` : ""}</div></div></a>`).join("")}</div>
+    <h2 class="mt5" style="font-size:20px;font-weight:600">Acesso Rápido</h2>
+    <div class="atalhos">${atalhos.map(([h, l, i, cor, fill]) => `<a class="cartao" href="${h}"><span style="color:${cor}">${ic(i, { s: 30, fill })}</span>${l}</a>`).join("")}</div>
+  </main>`;
+}
+
+function iconeStatus(st) {
+  if (st === "concluido") return `<span class="st ok">${ic("check", { s: 18, sw: 3 })}</span>`;
+  if (st === "andamento") return `<span class="st and">${ic("play", { s: 14, fill: true, style: "margin-left:2px" })}</span>`;
+  return `<span class="st lock">${ic("lock", { s: 15 })}</span>`;
+}
+function listaModulos(f) {
+  const t = (ui.buscaAulas || "").toLowerCase();
+  const lista = modulos.filter((m) => (ui.filtroAulas === "todos" || m.nivel === ui.filtroAulas) && (!t || m.titulo.toLowerCase().includes(t) || m.aulas.some((a) => a.titulo.toLowerCase().includes(t))));
+  if (!lista.length) return `<p class="t2" style="text-align:center;padding:40px 0">Nenhum módulo encontrado.</p>`;
+  return lista.map((m) => {
+    const pr = progressoModulo(m, f), st = statusModulo(m, f), min = m.aulas.reduce((s, a) => s + a.minutos, 0);
+    const corpo = `<div class="mod cartao">${thumb(capaModulo(m), "")}<div class="f1 col" style="justify-content:center;padding-right:4px">
+      <div class="flex entre g2" style="align-items:flex-start"><div><p style="font-size:14px;color:#e5e5e5">Módulo ${m.numero}</p><p style="font-size:17px;font-weight:500;line-height:1.2">${esc(m.titulo)}</p><p class="t2 mt1" style="font-size:14px">${m.aulas.length} aulas • ${duracaoTotal(min)}</p></div>${iconeStatus(st)}</div>
+      <div class="flex g3 mt2">${barra(pr.pct)}<span style="width:44px;text-align:right;font-size:14px;flex-shrink:0">${pr.pct}%</span></div></div></div>`;
+    return `<li style="margin-top:12px">${st === "bloqueado" ? corpo : `<a href="#/modulo/${m.id}">${corpo}</a>`}</li>`;
+  }).join("");
+}
+function telaAulas(p, f) {
+  return `<main>${cabecalho("Aulas", "Aprenda do básico ao avançado com aulas 100% práticas.", null, botaoBusca("busca-aulas", ui.buscaAulas !== null))}
+    ${ui.buscaAulas !== null ? `<input class="campo-busca cartao" id="busca-aulas" placeholder="Buscar módulo ou aula" value="${esc(ui.buscaAulas)}">` : ""}
+    ${chips([["todos", "Todos"], ["basico", "Básico"], ["intermediario", "Intermediário"], ["avancado", "Avançado"]], ui.filtroAulas, "filtro-aulas")}
+    <ul id="lista-modulos" style="margin-top:8px">${listaModulos(f)}</ul></main>`;
+}
+
+function telaModulo(id, f) {
+  const m = modulos.find((x) => x.id === id);
+  if (!m) return telaNaoEncontrada();
+  const pr = progressoModulo(m, f), bloq = statusModulo(m, f) === "bloqueado", min = m.aulas.reduce((s, a) => s + a.minutos, 0);
+  return `<main><a class="voltar" href="#/aulas">${ic("chevron-left", { s: 18 })} Aulas</a>
+    ${thumb(capaModulo(m), "", "margin-top:16px;aspect-ratio:16/8;border-radius:16px")}
+    <p class="t2 mt4" style="font-size:14px">Módulo ${m.numero}</p><h1 style="font-size:26px;font-weight:700;line-height:1.2">${esc(m.titulo)}</h1>
+    <p class="t2 mt1" style="font-size:14px">${m.aulas.length} aulas • ${duracaoTotal(min)}</p>
+    <div class="flex g3 mt3">${barra(pr.pct)}<span style="font-size:14px;flex-shrink:0">${pr.pct}%</span></div>
+    ${bloq ? `<p class="cartao r-xl flex g2 mt5 t2" style="padding:16px;font-size:14px">${ic("lock", { s: 16 })} Conclua o módulo anterior para liberar.</p>` : ""}
+    <ol class="mt5">${m.aulas.map((a, i) => {
+      const feita = f.has(a.slug);
+      const item = `<div class="item-aula cartao"><span class="num ${feita ? "feito" : ""}">${feita ? "✓" : i + 1}</span><div class="f1"><p style="font-size:15px;font-weight:500;line-height:1.3">${esc(a.titulo)}</p><p class="flex g1 mt1 t2" style="font-size:12px">${ic("clock", { s: 12 })} ${a.minutos} min</p></div>${bloq ? `<span class="t2">${ic("lock", { s: 16 })}</span>` : `<span class="azul">${ic("play", { s: 16, fill: true })}</span>`}</div>`;
+      return `<li style="margin-top:8px">${bloq ? item : `<a href="#/aula/${a.slug}">${item}</a>`}</li>`;
+    }).join("")}</ol></main>`;
+}
+
+function botoesAula(slug, f) {
+  const feita = f.has(slug), prox = proximaAula(slug);
+  return `<button class="btn mt6 ${feita ? "concluida" : "cartao"}" data-acao="concluir" data-v="${slug}">${ic("circle-check", { s: 20 })} ${feita ? "Aula concluída" : "Marcar como concluída"}</button>
+    ${prox ? `<a class="btn azul-bg mt3" href="#/aula/${prox.slug}" data-acao="concluir-e-seguir" data-v="${slug}">${feita ? "Próxima aula" : "Concluir e ir para a próxima"} ${ic("chevron-right", { s: 18 })}</a>` : ""}`;
+}
+function telaAula(slug, f) {
+  const a = buscarAula(slug);
+  if (!a) return telaNaoEncontrada();
+  const m = moduloDaAula(slug), bloq = statusModulo(m, f) === "bloqueado";
+  if (!bloq) atualizar((p) => (p.historico[0] === slug ? p : { ...p, historico: [slug, ...p.historico.filter((s) => s !== slug)].slice(0, 10) }), false);
+  const src = `https://www.youtube-nocookie.com/embed/${a.youtubeId}?rel=0&modestbranding=1&playsinline=1`;
+  return `<main><a class="voltar" href="#/modulo/${m.id}">${ic("chevron-left", { s: 18 })} Módulo ${m.numero}</a>
+    <div class="player">${bloq ? `<div class="cartao t2" style="height:100%;display:grid;place-items:center;text-align:center;padding:24px;font-size:14px"><span class="col g2" style="align-items:center">${ic("lock", { s: 22 })}Conclua o módulo anterior para liberar esta aula.</span></div>` : `<iframe src="${src}" title="${esc(a.titulo)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`}</div>
+    <p class="t2 mt4" style="font-size:14px">${esc(m.titulo)}</p><h1 style="font-size:24px;font-weight:700;line-height:1.2">${esc(a.titulo)}</h1>
+    <p class="flex g2 mt1 t2" style="font-size:14px">${ic("clock", { s: 14 })} ${a.minutos} min • Vídeo: ${esc(a.canal)}</p>
+    ${bloq ? "" : `<div id="botoes-aula">${botoesAula(slug, f)}</div>`}</main>`;
+}
+
+const ICONES_MAT = { ferramentas: ["wrench", "var(--marca)"], fornecedores: ["truck", "#7dd3fc"], precos: ["badge-dollar-sign", "#34d399"], diagnostico: ["stethoscope", "var(--marca)"], vidro: ["smartphone", "#7dd3fc"], molhado: ["droplets", "#22d3ee"], whatsapp: ["message-circle", "#4ade80"], instagram: ["camera", "#f472b6"], garantia: ["file-check", "#fbbf24"] };
+function falta(m, inicio) { return m.liberaEmDias ? Math.max(0, Date.parse(inicio) + m.liberaEmDias * DIA - Date.now()) : 0; }
+function formatarFalta(ms) { const min = Math.ceil(ms / 6e4), d = Math.floor(min / 1440), h = Math.floor((min % 1440) / 60), m = min % 60; return d ? `${d}d ${h}h` : h ? `${h}h ${m}min` : `${m} min`; }
+function conteudoMateriais(p) {
+  const inicio = primeiroAcesso(p), t = (ui.buscaMat || "").toLowerCase();
+  const lista = materiais.filter((m) => (ui.filtroMat === "todos" || m.categoria === ui.filtroMat) && (!t || m.titulo.toLowerCase().includes(t)));
+  const pend = materiais.filter((m) => falta(m, inicio) > 0);
+  let aviso = "";
+  if (pend.length) {
+    const d = new Date(Date.now() + Math.min(...pend.map((m) => falta(m, inicio))));
+    aviso = `<div class="aviso"><span class="azul">${ic("clock", { s: 20 })}</span><p><b>${pend.length} ${pend.length === 1 ? "material será liberado" : "materiais serão liberados"}</b> em ${d.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" })} às ${d.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })}. Aproveite para avançar nas aulas!</p></div>`;
+  }
+  const cards = lista.map((m) => {
+    const fl = falta(m, inicio), lib = fl === 0, [i, cor] = ICONES_MAT[m.tipo] || ["file-text", "var(--marca)"];
+    return `<li class="mat cartao"><span style="color:${lib ? cor : "#737373"}">${ic(i, { s: 42, sw: 1.8 })}</span><p class="tit">${esc(m.titulo)}</p><p class="t2 mt1" style="font-size:12px">${esc(m.tamanho)}</p>
+      ${lib ? `<a class="baixar" href="${esc(m.arquivo)}" target="_blank" rel="noopener" aria-label="Abrir ${esc(m.titulo)}">${ic("arrow-down", { s: 18, sw: 2.6 })}</a>` : `<p class="trava">${ic("lock", { s: 12 })} Libera em ${formatarFalta(fl)}</p>`}</li>`;
+  }).join("");
+  return `${aviso}<ul class="grade-mat">${cards}</ul>${lista.length ? "" : `<p class="t2" style="text-align:center;padding:40px 0">Nenhum material encontrado.</p>`}`;
+}
+function telaMateriais(p) {
+  return `<main>${cabecalho("Materiais", "Acesse materiais complementares para turbinar seus estudos.", "file-text", botaoBusca("busca-mat", ui.buscaMat !== null))}
+    ${ui.buscaMat !== null ? `<input class="campo-busca cartao" id="busca-mat" placeholder="Buscar material" value="${esc(ui.buscaMat)}">` : ""}
+    ${chips([["todos", "Todos"], ["tecnico", "Técnico"], ["negocio", "Negócio"], ["extras", "Extras"]], ui.filtroMat, "filtro-mat")}
+    <div id="conteudo-mat">${conteudoMateriais(p)}</div></main>`;
+}
+
+function telaPerfil(p, f) {
+  const pg = progressoGeral(f), desde = new Date(p.criadoEm).toLocaleDateString("pt-BR", { month: "long", year: "numeric" });
+  const suporte = curso.whatsappSuporte ? `https://wa.me/${curso.whatsappSuporte}` : "#";
+  const itens = [["Meus Certificados", "trophy", "#fbbf24", "#/perfil"], ["Configurações", "settings", "#e5e5e5", "#/perfil"], ["Suporte", "headphones", "#e5e5e5", suporte]];
+  const cartaoNome = ui.editandoNome
+    ? `<form id="form-nome" class="flex g2"><input id="campo-nome" class="campo-nome" maxlength="40" value="${esc(p.nome)}"><button type="submit" class="btn-ic" aria-label="Salvar nome" style="width:40px;height:40px;background:var(--marca)">${ic("check", { s: 18 })}</button><button type="button" class="btn-ic btn-claro" data-acao="cancelar-nome" aria-label="Cancelar" style="width:40px;height:40px">${ic("x", { s: 18 })}</button></form>`
+    : `<div class="flex g4"><button class="avatar" data-acao="abrir-foto" aria-label="Alterar foto do perfil"><span class="circ">${p.foto ? `<img src="${p.foto}" alt="">` : `<span style="color:#525252;margin-top:12px">${ic("user", { s: 56, fill: true, sw: 0 })}</span>`}</span><span class="cam">${ic("camera", { s: 12, sw: 2.5 })}</span></button>
+        <div class="f1"><p class="trunc" style="font-size:18px;font-weight:600">${esc(p.nome)}</p><p class="trunc t2" style="font-size:14px">Aluno desde ${desde}</p></div>
+        <button class="btn-ic btn-claro" data-acao="editar-nome" aria-label="Editar nome" style="width:36px;height:36px">${ic("pencil", { s: 16 })}</button></div>`;
+  return `<main>${cabecalho("Perfil", "Gerencie sua conta e acompanhe seu desempenho.", "user")}
+    <section class="cartao r-2xl mt6" style="padding:16px">${cartaoNome}${ui.erroFoto ? `<p class="mt3" style="font-size:14px;color:#f87171">${esc(ui.erroFoto)}</p>` : ""}</section>
+    <section class="cartao r-2xl flex g4 mt3" style="padding:16px"><span style="color:#fbbf24">${ic("trophy", { s: 40, fill: true, sw: 1.4 })}</span>
+      <div class="f1"><p style="font-size:15px;font-weight:500">Seu Progresso Geral</p><div class="flex g3 mt2">${barra(pg.pct)}<span style="font-size:14px;font-weight:500;flex-shrink:0">${pg.pct}%</span></div>
+      <p class="t2" style="margin-top:6px;font-size:12px">Conclusão de ${pg.concluidos} de ${pg.total} módulos • ${pg.aulas} de ${pg.totalAulas} aulas</p></div></section>
+    <ul class="cartao r-2xl mt3 lista-perfil" style="overflow:hidden">${itens.map(([l, i, cor, h]) => `<li><a href="${h}"${h.startsWith("http") ? ' target="_blank" rel="noopener"' : ""}><span style="color:${cor}">${ic(i, { s: 22 })}</span><span class="f1">${l}</span><span class="t2">${ic("chevron-right", { s: 18 })}</span></a></li>`).join("")}
+      ${ehInstalado() ? "" : `<li><button data-acao="abrir-instalar"><span class="azul">${ic("download", { s: 22 })}</span><span class="f1">Instalar o app</span><span class="t2">${ic("chevron-right", { s: 18 })}</span></button></li>`}
+      <li><button data-acao="abrir-sair"><span style="color:#f97316">${ic("log-out", { s: 22 })}</span><span class="f1">Sair da Conta</span><span class="t2">${ic("chevron-right", { s: 18 })}</span></button></li></ul>
+    <p class="t2 mt4" style="text-align:center;font-size:12px">Acesso completo • dados salvos neste aparelho</p></main>`;
+}
+function folha(p, f) {
+  if (ui.folha === "instalar") return folhaInstalar();
+  if (ui.folha === "avisos") return folhaAvisos(p);
+  if (ui.folha === "foto") return `<div class="folha-fundo" data-acao="fechar-folha"><div class="folha cartao" data-parar><h2>Foto do perfil</h2><p class="t2 mt1" style="font-size:14px">A foto fica salva só neste aparelho.</p>
+    <button class="btn azul-bg mt5" style="border-radius:16px" data-acao="escolher-foto">${ic("image-plus", { s: 20 })} ${p.foto ? "Trocar foto" : "Escolher foto"}</button>
+    ${p.foto ? `<button class="btn btn-claro mt2" style="border-radius:16px;color:#f87171" data-acao="remover-foto">${ic("trash", { s: 18 })} Remover foto</button>` : ""}
+    <button class="btn btn-claro mt2" style="border-radius:16px" data-acao="fechar-folha">Cancelar</button></div></div>`;
+  if (ui.folha === "sair") { const n = progressoGeral(f).aulas; return `<div class="folha-fundo" data-acao="fechar-folha"><div class="folha cartao" data-parar><h2>Sair da conta?</h2>
+    <p class="t2 mt2" style="font-size:15px;line-height:1.45">Seu nome e seu progresso (${n} ${n === 1 ? "aula concluída" : "aulas concluídas"}) serão apagados deste aparelho. Isso não pode ser desfeito.</p>
+    <button class="btn mt5" style="border-radius:16px;background:rgba(239,68,68,.9)" data-acao="sair">Sair e apagar dados</button>
+    <button class="btn btn-claro mt2" style="border-radius:16px" data-acao="fechar-folha">Cancelar</button></div></div>`; }
+  return "";
+}
+const telaNaoEncontrada = () => `<main><p class="t2" style="padding:40px 0;text-align:center">Página não encontrada.</p><a class="btn azul-bg" href="#/">Voltar para o início</a></main>`;
+
+// ---------- roteamento ----------
+function rotaAtual() { const [nome = "", param = ""] = location.hash.replace(/^#\/?/, "").split("/"); return { nome, param: decodeURIComponent(param) }; }
+let ultimaRota = "";
+function render() {
+  const { nome, param } = rotaAtual();
+  const p = lerPerfil();
+  if (!p && nome !== "entrar") { location.replace("#/entrar"); return; }
+  if (p && nome === "entrar") { location.replace("#/"); return; }
+  const chaveRota = nome + "/" + param;
+  if (chaveRota !== ultimaRota) { window.scrollTo(0, 0); ui.folha = null; ui.editandoNome = false; ui.erroFoto = ""; if (nome === "materiais" && param) ui.filtroMat = param; }
+  ultimaRota = chaveRota;
+  if (!p) {
+    const digitado = document.getElementById("nome")?.value || "";
+    $app.innerHTML = telaEntrar() + (ui.folha === "instalar" ? folhaInstalar() : "");
+    ligarEntrar();
+    if (digitado) { const c = document.getElementById("nome"); c.value = digitado; document.getElementById("btn-entrar").disabled = digitado.trim().length < 2; }
+    return;
+  }
+  const f = new Set(p.concluidas);
+  const telas = { "": () => telaHome(p, f), aulas: () => telaAulas(p, f), modulo: () => telaModulo(param, f), aula: () => telaAula(param, f), materiais: () => telaMateriais(p), perfil: () => telaPerfil(p, f) };
+  const corpo = (telas[nome] || telaNaoEncontrada)();
+  $app.innerHTML = `<div class="fundo-app"><div class="tela">${corpo}</div>${nav(nome)}${folha(p, f)}</div>`;
+  if (ui.editandoNome) { const c = document.getElementById("campo-nome"); c?.focus(); c?.setSelectionRange(c.value.length, c.value.length); }
+}
+function ligarEntrar() {
+  const campo = document.getElementById("nome"), btn = document.getElementById("btn-entrar");
+  campo.addEventListener("input", () => { btn.disabled = campo.value.trim().length < 2; });
+  document.getElementById("form-entrar").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const nome = campo.value.trim();
+    if (nome.length < 2) return;
+    if (!localStorage.getItem(CHAVE_PA)) localStorage.setItem(CHAVE_PA, new Date().toISOString());
+    gravarPerfil({ nome, criadoEm: new Date().toISOString(), concluidas: [], historico: [] }, false);
+    location.replace("#/");
+  });
+  setTimeout(() => campo.focus(), 50);
+}
+
+// ---------- ações ----------
+document.addEventListener("click", (e) => {
+  const alvo = e.target.closest("[data-acao]");
+  if (!alvo) return;
+  if (e.target.closest("[data-parar]") && alvo.classList.contains("folha-fundo")) return;
+  const acao = alvo.dataset.acao, v = alvo.dataset.v;
+  const alternar = (slug, renderizar) => atualizar((p) => ({ ...p, concluidas: p.concluidas.includes(slug) ? p.concluidas.filter((s) => s !== slug) : [...p.concluidas, slug] }), renderizar);
+  switch (acao) {
+    case "filtro-aulas": ui.filtroAulas = v; render(); break;
+    case "busca-aulas": ui.buscaAulas = ui.buscaAulas === null ? "" : null; render(); document.getElementById("busca-aulas")?.focus(); break;
+    case "filtro-mat": ui.filtroMat = v; render(); break;
+    case "busca-mat": ui.buscaMat = ui.buscaMat === null ? "" : null; render(); document.getElementById("busca-mat")?.focus(); break;
+    case "concluir": {
+      alternar(v, false);
+      document.getElementById("botoes-aula").innerHTML = botoesAula(v, new Set(lerPerfil().concluidas));
+      break;
+    }
+    case "concluir-e-seguir": { const p = lerPerfil(); if (p && !p.concluidas.includes(v)) alternar(v, false); break; }
+    case "editar-nome": ui.editandoNome = true; render(); break;
+    case "cancelar-nome": ui.editandoNome = false; render(); break;
+    case "abrir-foto": ui.folha = "foto"; render(); break;
+    case "abrir-sair": ui.folha = "sair"; render(); break;
+    case "fechar-folha": ui.folha = null; render(); break;
+    case "abrir-avisos": ui.folha = "avisos"; render(); break;
+    case "abrir-instalar":
+    case "instalar": {
+      const pr = promptInstalar;
+      if (!pr) { ui.folha = "instalar"; render(); break; }
+      promptInstalar = null;
+      pr.prompt();
+      pr.userChoice.then((r) => { if (r && r.outcome === "accepted") localStorage.setItem(CHAVE_INSTALAR, "instalado"); render(); }, () => render());
+      break;
+    }
+    case "fechar-cartao-instalar": localStorage.setItem(CHAVE_INSTALAR, String(Date.now())); render(); break;
+    case "copiar-link": {
+      const link = location.origin + location.pathname;
+      const ok = () => { alvo.innerHTML = `${ic("check", { s: 18 })} Link copiado!`; };
+      if (navigator.clipboard) navigator.clipboard.writeText(link).then(ok, () => window.prompt("Copie o link:", link));
+      else window.prompt("Copie o link:", link);
+      break;
+    }
+    case "escolher-foto": ui.folha = null; render(); document.getElementById("arquivo-foto").click(); break;
+    case "remover-foto": ui.folha = null; atualizar(({ foto, ...resto }) => resto); break;
+    case "sair": ui.folha = null; localStorage.removeItem(CHAVE); location.replace("#/entrar"); break;
+  }
+});
+document.addEventListener("input", (e) => {
+  if (e.target.id === "busca-aulas") { ui.buscaAulas = e.target.value; document.getElementById("lista-modulos").innerHTML = listaModulos(new Set(lerPerfil().concluidas)); }
+  if (e.target.id === "busca-mat") { ui.buscaMat = e.target.value; document.getElementById("conteudo-mat").innerHTML = conteudoMateriais(lerPerfil()); }
+});
+document.addEventListener("submit", (e) => {
+  if (e.target.id !== "form-nome") return;
+  e.preventDefault();
+  const n = document.getElementById("campo-nome").value.trim();
+  if (n.length < 2) return;
+  ui.editandoNome = false;
+  atualizar((p) => ({ ...p, nome: n }));
+});
+document.getElementById("arquivo-foto").addEventListener("change", async (e) => {
+  const arq = e.target.files?.[0];
+  e.target.value = "";
+  if (!arq) return;
+  ui.erroFoto = "";
+  try { const foto = await prepararFoto(arq); atualizar((p) => ({ ...p, foto })); }
+  catch { ui.erroFoto = "Não foi possível usar essa imagem. Tente outra foto."; render(); }
+});
+window.addEventListener("hashchange", render);
+window.addEventListener("storage", (e) => { if (e.key === CHAVE) render(); });
+setInterval(() => { if (rotaAtual().nome === "materiais") { const el = document.getElementById("conteudo-mat"), p = lerPerfil(); if (el && p) el.innerHTML = conteudoMateriais(p); } }, 30000);
+render();
+</script>
+</body>
+</html>
