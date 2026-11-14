@@ -16,7 +16,7 @@
 <meta name="description" content="Aprenda a consertar iPhone do zero com vídeo aulas práticas.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
 <style>
 :root{--marca:#1e8bff;--marca-forte:#0a6cff;--fundo:#05070d;--borda:rgba(255,255,255,.07);--texto-2:#a3abba;--sucesso:#22c55e;--seguro-topo:env(safe-area-inset-top);--seguro-base:env(safe-area-inset-bottom)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -142,6 +142,10 @@ ul,ol{margin:0;padding:0;list-style:none}
 .aviso-item .ponto{width:9px;height:9px;border-radius:999px;margin-top:6px;flex-shrink:0;background:transparent}
 .aviso-item.novo .ponto{background:var(--marca);box-shadow:0 0 8px rgba(30,139,255,.8)}
 .aviso-link{display:inline-flex;align-items:center;gap:4px;margin-top:8px;font-size:14px;font-weight:600;color:var(--marca)}
+.cert-preview{margin-top:20px;width:100%;border-radius:12px;box-shadow:0 0 30px rgba(30,110,255,.25);display:block}
+.cert-gerando{margin-top:20px;aspect-ratio:1600/1131;border-radius:12px;display:grid;place-items:center;font-size:14px}
+.cert-trava{margin-top:24px;padding:24px 20px;border-radius:16px;text-align:center}
+.cert-trava .cad{width:64px;height:64px;margin:0 auto;border-radius:999px;display:grid;place-items:center;background:rgba(30,139,255,.15);color:var(--marca)}
 /* entrar */
 .entrar{position:relative;display:flex;flex-direction:column;min-height:100dvh;overflow:hidden}
 .entrar .topo{position:absolute;left:0;right:0;top:0;height:52dvh}
@@ -251,7 +255,7 @@ function logo() {
 }
 function nav(rotaAtual) {
   const abas = [["", "Home", "house"], ["aulas", "Aulas", "square-play"], ["materiais", "Materiais", "file-text"], ["perfil", "Perfil", "user"]];
-  const ativa = (id) => (id === "" ? rotaAtual === "" : rotaAtual === id || (id === "aulas" && (rotaAtual === "aula" || rotaAtual === "modulo")));
+  const ativa = (id) => (id === "" ? rotaAtual === "" : rotaAtual === id || (id === "aulas" && (rotaAtual === "aula" || rotaAtual === "modulo")) || (id === "perfil" && rotaAtual === "certificado"));
   return `<nav class="nav"><ul>${abas.map(([id, l, i]) => { const a = ativa(id); return `<li><a href="#/${id}" class="${a ? "ativo" : ""}">${ic(i, { s: 24, sw: a ? 2.4 : 1.6, fill: a, cls: a ? "ic-ativo" : "" })}${l}</a></li>`; }).join("")}</ul></nav>`;
 }
 
@@ -354,7 +358,7 @@ function telaHome(p, f) {
   const vistas = p.historico.map(buscarAula).filter(Boolean).slice(0, 6);
   const recentes = vistas.length ? vistas : modulo.aulas.slice(0, 4);
   const nome = primeiroNome(p.nome);
-  const atalhos = [["#/aulas", "Minhas Aulas", "play", "var(--marca)", true], ["#/materiais", "Materiais de Apoio", "file-text", "var(--marca)", false], ["#/materiais/tecnico", "Ferramentas Recomendadas", "wrench", "var(--marca)", false], ["#/perfil", "Meu Certificado", "trophy", "#fbbf24", true]];
+  const atalhos = [["#/aulas", "Minhas Aulas", "play", "var(--marca)", true], ["#/materiais", "Materiais de Apoio", "file-text", "var(--marca)", false], ["#/materiais/tecnico", "Ferramentas Recomendadas", "wrench", "var(--marca)", false], ["#/certificado", "Meu Certificado", "trophy", "#fbbf24", true]];
   const naoLidos = contarNaoLidos(p);
   return `<main>${cartaoInstalar()}
     <header class="flex entre">${logo()}<button class="btn-ic" data-acao="abrir-avisos" style="position:relative;padding:4px;color:var(--marca)" aria-label="Avisos${naoLidos ? ` (${naoLidos} novos)` : ""}">${ic("bell", { s: 30, sw: 1.8 })}${naoLidos ? `<span class="badge" style="color:#fff">${naoLidos}</span>` : ""}</button></header>
@@ -463,7 +467,7 @@ function telaMateriais(p) {
 function telaPerfil(p, f) {
   const pg = progressoGeral(f), desde = new Date(p.criadoEm).toLocaleDateString("pt-BR", { month: "long", year: "numeric" });
   const suporte = curso.whatsappSuporte ? `https://wa.me/${curso.whatsappSuporte}` : "#";
-  const itens = [["Meus Certificados", "trophy", "#fbbf24", "#/perfil"], ["Configurações", "settings", "#e5e5e5", "#/perfil"], ["Suporte", "headphones", "#e5e5e5", suporte]];
+  const itens = [["Meus Certificados", "trophy", "#fbbf24", "#/certificado"], ["Configurações", "settings", "#e5e5e5", "#/perfil"], ["Suporte", "headphones", "#e5e5e5", suporte]];
   const cartaoNome = ui.editandoNome
     ? `<form id="form-nome" class="flex g2"><input id="campo-nome" class="campo-nome" maxlength="40" value="${esc(p.nome)}"><button type="submit" class="btn-ic" aria-label="Salvar nome" style="width:40px;height:40px;background:var(--marca)">${ic("check", { s: 18 })}</button><button type="button" class="btn-ic btn-claro" data-acao="cancelar-nome" aria-label="Cancelar" style="width:40px;height:40px">${ic("x", { s: 18 })}</button></form>`
     : `<div class="flex g4"><button class="avatar" data-acao="abrir-foto" aria-label="Alterar foto do perfil"><span class="circ">${p.foto ? `<img src="${p.foto}" alt="">` : `<span style="color:#525252;margin-top:12px">${ic("user", { s: 56, fill: true, sw: 0 })}</span>`}</span><span class="cam">${ic("camera", { s: 12, sw: 2.5 })}</span></button>
@@ -494,6 +498,154 @@ function folha(p, f) {
 }
 const telaNaoEncontrada = () => `<main><p class="t2" style="padding:40px 0;text-align:center">Página não encontrada.</p><a class="btn azul-bg" href="#/">Voltar para o início</a></main>`;
 
+// ---------- certificado ----------
+const dataBR = (iso) => new Date(iso).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric" });
+let certCache = { chave: "", blob: null, url: "" };
+function telaCertificado(p, f) {
+  const pg = progressoGeral(f);
+  const topo = `<a class="voltar" href="#/perfil">${ic("chevron-left", { s: 18 })} Perfil</a>${cabecalho("Meus Certificados", "Seu certificado de conclusão da Formação Técnico iPhone.", "trophy")}`;
+  if (pg.pct < 100) {
+    return `<main>${topo}<section class="cartao cert-trava"><div class="cad">${ic("lock", { s: 28 })}</div>
+      <h2 class="mt4" style="font-size:20px;font-weight:700">Certificado bloqueado</h2>
+      <p class="t2 mt2" style="font-size:15px;line-height:1.45">Conclua todas as aulas para liberar o seu certificado de conclusão.</p>
+      <div class="flex g3 mt5">${barra(pg.pct)}<span style="font-size:14px;font-weight:600;flex-shrink:0">${pg.pct}%</span></div>
+      <p class="t2 mt2" style="font-size:13px">${pg.aulas} de ${pg.totalAulas} aulas concluídas</p>
+      <a class="btn azul-bg mt5" href="#/aulas">Continuar as aulas ${ic("chevron-right", { s: 18 })}</a></section></main>`;
+  }
+  if (!p.concluidoEm) atualizar((x) => ({ ...x, concluidoEm: new Date().toISOString() }), false);
+  const nome = p.nome, data = dataBR(p.concluidoEm || new Date().toISOString());
+  setTimeout(() => prepararCertificado(nome, data), 0);
+  const podeCompartilhar = !!(navigator.canShare && navigator.share);
+  return `<main>${topo}
+    <div id="area-cert">${certCache.chave === nome + "|" + data ? `<img class="cert-preview" src="${certCache.url}" alt="Certificado de ${esc(nome)}">` : `<div class="cert-gerando cartao t2">Gerando seu certificado…</div>`}</div>
+    <p class="t2 mt3" style="font-size:13px;text-align:center">Concluído em ${data} · em nome de <b style="color:#fff">${esc(nome)}</b></p>
+    <button class="btn azul-bg mt5" data-acao="baixar-certificado">${ic("download", { s: 20 })} Baixar certificado</button>
+    ${podeCompartilhar ? `<button class="btn btn-claro mt2" data-acao="compartilhar-certificado">${ic("share", { s: 18 })} Compartilhar</button>` : ""}
+    <p class="t2 mt4" style="font-size:12px;text-align:center;line-height:1.5">O nome vem do seu perfil. Para mudar, edite o nome na aba Perfil antes de baixar.</p></main>`;
+}
+async function prepararCertificado(nome, data) {
+  const chave = nome + "|" + data;
+  if (certCache.chave !== chave) {
+    const canvas = await desenharCertificado(nome, data);
+    const blob = await new Promise((r) => canvas.toBlob(r, "image/png"));
+    if (certCache.url) URL.revokeObjectURL(certCache.url);
+    certCache = { chave, blob, url: URL.createObjectURL(blob) };
+  }
+  const area = document.getElementById("area-cert");
+  if (area && rotaAtual().nome === "certificado") area.innerHTML = `<img class="cert-preview" src="${certCache.url}" alt="Certificado de ${esc(nome)}">`;
+}
+const nomeArquivoCert = () => "certificado-tecnico-iphone.png";
+async function baixarCertificado() {
+  const p = lerPerfil(); if (!p) return;
+  await prepararCertificado(p.nome, dataBR(p.concluidoEm || new Date().toISOString()));
+  const a = document.createElement("a");
+  a.href = certCache.url; a.download = nomeArquivoCert();
+  document.body.appendChild(a); a.click(); a.remove();
+}
+async function compartilharCertificado() {
+  const p = lerPerfil(); if (!p) return;
+  await prepararCertificado(p.nome, dataBR(p.concluidoEm || new Date().toISOString()));
+  const arquivo = new File([certCache.blob], nomeArquivoCert(), { type: "image/png" });
+  try {
+    if (navigator.canShare && navigator.canShare({ files: [arquivo] })) await navigator.share({ files: [arquivo], title: "Meu certificado", text: "Concluí a Formação Técnico iPhone!" });
+    else baixarCertificado();
+  } catch {}
+}
+function carregarImagem(src) { return new Promise((ok, erro) => { const i = new Image(); i.onload = () => ok(i); i.onerror = erro; i.src = src; }); }
+function retanguloRedondo(x, l, t, w, h, r) { x.beginPath(); x.moveTo(l + r, t); x.arcTo(l + w, t, l + w, t + h, r); x.arcTo(l + w, t + h, l, t + h, r); x.arcTo(l, t + h, l, t, r); x.arcTo(l, t, l + w, t, r); x.closePath(); }
+async function desenharCertificado(nome, data) {
+  const fontes = ['700 82px "Playfair Display"', 'italic 600 76px "Playfair Display"', "800 26px Inter", "700 18px Inter", "500 24px Inter", "600 15px Inter"];
+  await Promise.all(fontes.map((ft) => document.fonts.load(ft).catch(() => {})));
+  const W = 1600, H = 1131, c = document.createElement("canvas");
+  c.width = W; c.height = H;
+  const x = c.getContext("2d");
+  const grad = (g, paradas) => { paradas.forEach(([o, cor]) => g.addColorStop(o, cor)); return g; };
+  const texto = (t, px, py, fonte, cor, alinhar = "left", espaco = "0px") => { x.font = fonte; x.fillStyle = cor; x.textAlign = alinhar; if ("letterSpacing" in x) x.letterSpacing = espaco; x.fillText(t, px, py); if ("letterSpacing" in x) x.letterSpacing = "0px"; };
+
+  // fundo claro
+  x.fillStyle = "#fbfcfe"; x.fillRect(0, 0, W, H);
+  x.fillStyle = grad(x.createRadialGradient(W, 0, 0, W, 0, 1100), [[0, "#e8f1ff"], [1, "rgba(232,241,255,0)"]]); x.fillRect(0, 0, W, H);
+  x.fillStyle = grad(x.createRadialGradient(300, H, 0, 300, H, 900), [[0, "#eef3fb"], [1, "rgba(238,243,251,0)"]]); x.fillRect(0, 0, W, H);
+
+  // faixa lateral escura
+  x.fillStyle = "#05070d"; x.fillRect(0, 0, 300, H);
+  x.fillStyle = grad(x.createRadialGradient(240, 0, 0, 240, 0, 560), [[0, "rgba(30,110,255,.55)"], [1, "rgba(30,110,255,0)"]]); x.fillRect(0, 0, 300, H);
+  x.fillStyle = grad(x.createRadialGradient(0, H, 0, 0, H, 460), [[0, "rgba(30,80,200,.35)"], [1, "rgba(30,80,200,0)"]]); x.fillRect(0, 0, 300, H);
+  x.fillStyle = grad(x.createLinearGradient(0, 0, 0, H), [[0, "#1e8bff"], [1, "#0a4fb8"]]); x.fillRect(294, 0, 6, H);
+
+  // ícone do app
+  try {
+    const logo = await carregarImagem("icone-512.png");
+    x.save(); x.shadowColor = "rgba(30,139,255,.5)"; x.shadowBlur = 40; retanguloRedondo(x, 70, 90, 160, 160, 36); x.fillStyle = "#05070d"; x.fill(); x.restore();
+    x.save(); retanguloRedondo(x, 70, 90, 160, 160, 36); x.clip(); x.drawImage(logo, 70, 90, 160, 160); x.restore();
+  } catch {}
+  texto("Formação", 147, 318, "800 26px Inter", "#ffffff", "center");
+  x.font = "800 26px Inter";
+  const l1 = x.measureText("Técnico ").width, l2 = x.measureText("iPhone").width, ini = 147 - (l1 + l2) / 2;
+  texto("Técnico ", ini, 348, "800 26px Inter", "#ffffff");
+  texto("iPhone", ini + l1, 348, "800 26px Inter", "#1e8bff");
+
+  // dados do curso na faixa
+  const dado = (rotulo, linhas, y, tam = 34) => { texto(rotulo, 44, y, "400 17px Inter", "#c9d4e6"); linhas.forEach((ln, i) => texto(ln, 44, y + 40 + i * (tam + 4), `800 ${tam}px Inter`, "#ffffff")); };
+  dado("Carga horária", ["10 horas"], 790);
+  dado("Conteúdo", ["8 módulos", "50 aulas"], 880);
+  dado("Modalidade", ["Online"], 1010, 26);
+
+  // moldura
+  x.strokeStyle = "#d7e3f5"; x.lineWidth = 2; retanguloRedondo(x, 341, 41, W - 382, H - 82, 18); x.stroke();
+  x.strokeStyle = "#e9f0fa"; x.lineWidth = 1; retanguloRedondo(x, 351.5, 51.5, W - 403, H - 103, 12); x.stroke();
+
+  // medalha
+  x.save(); x.translate(1330, 110);
+  x.fillStyle = "#0a4fb8"; x.beginPath(); x.moveTo(45, 95); x.lineTo(30, 145); x.lineTo(55, 132); x.lineTo(68, 150); x.lineTo(78, 105); x.closePath(); x.fill();
+  x.fillStyle = "#1e8bff"; x.beginPath(); x.moveTo(105, 95); x.lineTo(120, 145); x.lineTo(95, 132); x.lineTo(82, 150); x.lineTo(72, 105); x.closePath(); x.fill();
+  x.fillStyle = grad(x.createLinearGradient(17, 10, 133, 126), [[0, "#4ea6ff"], [1, "#0a4fb8"]]); x.beginPath(); x.arc(75, 68, 58, 0, Math.PI * 2); x.fill();
+  x.strokeStyle = "rgba(255,255,255,.65)"; x.lineWidth = 2; x.setLineDash([4, 5]); x.beginPath(); x.arc(75, 68, 47, 0, Math.PI * 2); x.stroke(); x.setLineDash([]);
+  x.strokeStyle = "#fff"; x.lineWidth = 9; x.lineCap = "round"; x.lineJoin = "round"; x.beginPath(); x.moveTo(52, 69); x.lineTo(67, 84); x.lineTo(98, 52); x.stroke();
+  x.restore();
+
+  // títulos
+  const L = 420;
+  texto("CERTIFICADO DE CONCLUSÃO", L, 140, "700 18px Inter", "#1e8bff", "left", "5.8px");
+  texto("Formação Técnico", L, 240, '700 82px "Playfair Display"', "#05070d");
+  texto("iPhone do Zero", L, 324, '700 82px "Playfair Display"', "#05070d");
+  texto("Certificamos que", L, 400, "400 24px Inter", "#4b5568");
+
+  // nome do aluno (diminui a fonte se for muito longo)
+  let tam = 76;
+  do { x.font = `italic 600 ${tam}px "Playfair Display"`; } while (x.measureText(nome).width > 960 && (tam -= 2) > 36);
+  texto(nome, L, 488, `italic 600 ${tam}px "Playfair Display"`, "#0a4fb8");
+  x.fillStyle = "#1e8bff"; x.fillRect(L, 510, 960, 2);
+
+  // texto com trechos em negrito
+  const trechos = [["concluiu com aproveitamento o curso livre ", 0], ["Formação Técnico iPhone do Zero", 1], [", com carga horária de ", 0], ["10 horas", 1], [", abrangendo diagnóstico de defeitos, troca de tela, troca de bateria e outros reparos em iPhone.", 0]];
+  const palavras = trechos.flatMap(([t, b]) => t.split(/(?<= )/).map((p) => [p, b]));
+  let px = L, py = 570; const larguraMax = 980, alturaLinha = 37;
+  for (const [p, b] of palavras) {
+    x.font = `${b ? 700 : 400} 24px Inter`;
+    const w = x.measureText(p).width;
+    if (px + w - L > larguraMax && px > L) { px = L; py += alturaLinha; }
+    texto(p, px, py, `${b ? 700 : 400} 24px Inter`, b ? "#05070d" : "#2a3346");
+    px += w;
+  }
+
+  // módulos em etiquetas
+  let cx = L, cy = py + 40;
+  x.font = "600 15px Inter";
+  for (const m of modulos) {
+    const w = x.measureText(m.titulo).width + 30;
+    if (cx + w - L > 1020) { cx = L; cy += 45; }
+    retanguloRedondo(x, cx, cy, w, 35, 17.5); x.fillStyle = "#eaf3ff"; x.fill(); x.strokeStyle = "#c8defc"; x.lineWidth = 1; x.stroke();
+    texto(m.titulo, cx + 15, cy + 23, "600 15px Inter", "#0a4fb8");
+    cx += w + 10;
+  }
+
+  // data de conclusão
+  texto("Concluído em", L, 990, "500 17px Inter", "#5b6578");
+  texto(data, L, 1026, "800 30px Inter", "#05070d", "left", "1px");
+  return c;
+}
+
 // ---------- roteamento ----------
 function rotaAtual() { const [nome = "", param = ""] = location.hash.replace(/^#\/?/, "").split("/"); return { nome, param: decodeURIComponent(param) }; }
 let ultimaRota = "";
@@ -513,7 +665,7 @@ function render() {
     return;
   }
   const f = new Set(p.concluidas);
-  const telas = { "": () => telaHome(p, f), aulas: () => telaAulas(p, f), modulo: () => telaModulo(param, f), aula: () => telaAula(param, f), materiais: () => telaMateriais(p), perfil: () => telaPerfil(p, f) };
+  const telas = { "": () => telaHome(p, f), aulas: () => telaAulas(p, f), modulo: () => telaModulo(param, f), aula: () => telaAula(param, f), materiais: () => telaMateriais(p), perfil: () => telaPerfil(p, f), certificado: () => telaCertificado(p, f) };
   const corpo = (telas[nome] || telaNaoEncontrada)();
   $app.innerHTML = `<div class="fundo-app"><div class="tela">${corpo}</div>${nav(nome)}${folha(p, f)}</div>`;
   if (ui.editandoNome) { const c = document.getElementById("campo-nome"); c?.focus(); c?.setSelectionRange(c.value.length, c.value.length); }
@@ -538,7 +690,11 @@ document.addEventListener("click", (e) => {
   if (!alvo) return;
   if (e.target.closest("[data-parar]") && alvo.classList.contains("folha-fundo")) return;
   const acao = alvo.dataset.acao, v = alvo.dataset.v;
-  const alternar = (slug, renderizar) => atualizar((p) => ({ ...p, concluidas: p.concluidas.includes(slug) ? p.concluidas.filter((s) => s !== slug) : [...p.concluidas, slug] }), renderizar);
+  const alternar = (slug, renderizar) => atualizar((p) => {
+    const concluidas = p.concluidas.includes(slug) ? p.concluidas.filter((s) => s !== slug) : [...p.concluidas, slug];
+    const tudo = todasAulas.every((a) => concluidas.includes(a.slug));
+    return { ...p, concluidas, concluidoEm: tudo ? p.concluidoEm || new Date().toISOString() : p.concluidoEm };
+  }, renderizar);
   switch (acao) {
     case "filtro-aulas": ui.filtroAulas = v; render(); break;
     case "busca-aulas": ui.buscaAulas = ui.buscaAulas === null ? "" : null; render(); document.getElementById("busca-aulas")?.focus(); break;
@@ -556,6 +712,8 @@ document.addEventListener("click", (e) => {
     case "abrir-sair": ui.folha = "sair"; render(); break;
     case "fechar-folha": ui.folha = null; render(); break;
     case "abrir-avisos": ui.folha = "avisos"; render(); break;
+    case "baixar-certificado": baixarCertificado(); break;
+    case "compartilhar-certificado": compartilharCertificado(); break;
     case "abrir-instalar":
     case "instalar": {
       const pr = promptInstalar;
