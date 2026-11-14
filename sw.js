@@ -2,23 +2,23 @@
 // - Guarda o app, as imagens e os PDFs já abertos para abrir rápido e funcionar com internet fraca.
 // - Página principal: busca a versão mais nova na rede e usa a guardada se estiver sem internet.
 // - Vídeos do YouTube não são guardados (precisam de internet).
-const VERSAO = "6a38afe56d";
+const VERSAO = "4889b4e1a7";
 const CACHE = `tecnico-iphone-${VERSAO}`;
 const ESSENCIAIS = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
-  "./icones/icone-192.png",
-  "./icones/icone-512.png",
-  "./img/hero-iphone.jpg",
-  "./img/modulos/conhecendo-o-iphone.jpg",
-  "./img/modulos/ferramentas-e-tecnicas.jpg",
-  "./img/modulos/desmontagem-e-montagem.jpg",
-  "./img/modulos/diagnostico.jpg",
-  "./img/modulos/troca-de-tela.jpg",
-  "./img/modulos/troca-de-bateria.jpg",
-  "./img/modulos/outros-reparos.jpg",
-  "./img/modulos/negocio.jpg"
+  "./icone-192.png",
+  "./icone-512.png",
+  "./hero-iphone.jpg",
+  "./conhecendo-o-iphone.jpg",
+  "./ferramentas-e-tecnicas.jpg",
+  "./desmontagem-e-montagem.jpg",
+  "./diagnostico.jpg",
+  "./troca-de-tela.jpg",
+  "./troca-de-bateria.jpg",
+  "./outros-reparos.jpg",
+  "./negocio.jpg"
 ];
 
 self.addEventListener("install", (e) => {
